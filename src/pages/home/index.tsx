@@ -1,15 +1,15 @@
 import { useTypeSelector } from '../../hooks/useTypeSelector'
-import { fetchUsers } from '../../store/actionCreators/user'
+import { fetchProduct } from '../../store/actionCreators/product'
 import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
 
 const Home: React.FC = () => {
-  const { users, error, loading } = useTypeSelector(state => state.user)
+  const { products, error, loading } = useTypeSelector(state => state.product)
   const dispatch = useDispatch()
   useEffect(() => {
 
-    dispatch(fetchUsers())
+    dispatch(fetchProduct())
 
   }, [])
 
@@ -24,8 +24,8 @@ const Home: React.FC = () => {
     <>
       <Header />
       <ul>
-        {users.map((user, index) =>
-          <li key={index}>{user.name}</li>
+        {products.map((product, index) =>
+          <li key={index}>{product.name}</li>
         )}
       </ul>
     </>

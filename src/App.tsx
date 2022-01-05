@@ -14,6 +14,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/*здесь логика (условие)*/}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

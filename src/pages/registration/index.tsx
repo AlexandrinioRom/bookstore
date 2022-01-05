@@ -1,13 +1,14 @@
 import { MyButton as Button } from '../../components/auth/button'
 import { MyInput as Input } from '../../components/auth/input'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
-import { reg } from '../../store/actionCreators/auth'
+import { registration } from '../../store/actionCreators/auth'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Link } from '@mui/material'
 import Box from '@mui/material/Box'
+import { useEffect } from 'react'
 import * as React from 'react'
 
 
@@ -26,16 +27,23 @@ export default function Registration() {
       dob: data.get('dob'),
       fullName: data.get('fullName')
     }
-    dispatch(reg(reqBody))
-
+    dispatch(registration(reqBody))
   }
 
-  if (acces) { navigate(-1) }
+  useEffect(() => {
+    if (acces) { navigate(-1) }
+  }, [acces])
+
 
   if (error) {
+
+    const errorArr = [error].join()
+
     return (
       <MyBox component='div'>
-        <Typography variant='h4' color='error'>{error}</Typography>
+        <Typography variant='h4' color='error'>
+          {errorArr}
+        </Typography>
         <div>
           <Link href="/auth/registration">
             Back

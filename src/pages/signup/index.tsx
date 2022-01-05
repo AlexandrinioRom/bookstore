@@ -10,6 +10,7 @@ import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import * as React from 'react'
+import { useEffect } from 'react'
 
 export default function SignIn() {
   const { acces, error } = useTypeSelector(state => state.auth)
@@ -29,7 +30,10 @@ export default function SignIn() {
     dispatch(logIn(reqBody))
   };
 
-  if (acces) { navigate(-1) }
+  useEffect(() => {
+    if (acces) { navigate(-1) }
+  }, [acces])
+
 
   if (error) {
     return (

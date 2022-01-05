@@ -1,32 +1,22 @@
 export interface AuthState {
   acces: boolean;
   error: null | string;
-  token: null | any[]
+  token: null | string
 }
 
 export enum AuthActionTypes {
-  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-  LOGIN_ERROR = 'LOGIN_ERROR',
-  REG_SUCCESS = 'REG_SUCCESS',
-  REG_ERROR = 'REG_ERROR',
+  AUTH_SUCCESS = 'AUTH_SUCCESS',
+  AUTH_ERROR = 'AUTH_ERROR',
+ 
 }
-interface LOGIN_SUCCESS {
-  type: AuthActionTypes.LOGIN_SUCCESS,
-  payload: boolean
-}
-
-interface LOGIN_ERROR {
-  type: AuthActionTypes.LOGIN_ERROR,
+interface AUTH_SUCCESS {
+  type: AuthActionTypes.AUTH_SUCCESS,
   payload: string
 }
 
-interface REG_SUCCESS {
-  type: AuthActionTypes.REG_SUCCESS,
-  payload: boolean
-}
-
-interface REG_ERROR {
-  type: AuthActionTypes.REG_ERROR,
+interface AUTH_ERROR {
+  type: AuthActionTypes.AUTH_ERROR,
   payload: string
 }
-export type AuthAction = LOGIN_SUCCESS | LOGIN_ERROR | REG_SUCCESS | REG_ERROR
+
+export type AuthAction = AUTH_SUCCESS | AUTH_ERROR 
