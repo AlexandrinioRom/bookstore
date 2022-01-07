@@ -4,7 +4,6 @@ import axios from "../../api"
 
 export const logIn = (reqBody: {}) => {
   return async (dispatch:Dispatch<AuthAction>) => {
-
     try {
       const response = await axios.post('/auth/login', reqBody)
       dispatch({
@@ -21,7 +20,6 @@ export const logIn = (reqBody: {}) => {
 
 export const registration = (reqBody: {}) => {
   return  async (dispatch:Dispatch<AuthAction>) => {
-    
     try {
       const response = await axios.post('/auth/registration', reqBody)
       dispatch({

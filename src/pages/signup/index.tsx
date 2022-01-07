@@ -1,7 +1,8 @@
+import { MyInput as Input } from '../../components/auth/input'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { logIn } from '../../store/actionCreators/auth'
 import { MyButton } from '../../components/auth/button'
-import { MyInput } from '../../components/auth/input'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
@@ -9,51 +10,45 @@ import { useDispatch } from 'react-redux'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import * as React from 'react'
 import { useEffect } from 'react'
+import * as React from 'react'
+
+interface IFormInput {
+  email: string;
+  password: string;
+}
 
 export default function SignIn() {
-  const { acces, error } = useTypeSelector(state => state.auth)
+
+  const { acces } = useTypeSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<IFormInput>({
+    mode: 'onBlur'
+  })
 
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
 
     const reqBody = {
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.email,
+      password: data.password
     }
-
     dispatch(logIn(reqBody))
-  };
+  }
 
   useEffect(() => {
     if (acces) { navigate(-1) }
   }, [acces])
 
-
-  if (error) {
-    return (
-      <MyBox component='div'>
-        <Typography variant='h4' color='error'>{error}</Typography>
-        <div>
-          <Link href="/auth/login">
-            Back
-          </Link>
-          <Link href="/" ml={2}>
-            Home
-          </Link>
-        </div>
-      </MyBox>
-    )
-  }
-
   return (
 
     <MyBox>
+
       <Typography
         mb={2}
         variant="h5"
@@ -62,41 +57,58 @@ export default function SignIn() {
       >
         Login
       </Typography>
-      <Box component="form" onSubmit={handleSubmit}>
-        <MyInput
-          required
-          name="email"
+
+      <Box component='form' onSubmit={handleSubmit(onSubmit)}>
+
+        <Input
           type="email"
-          label="Email"
+          label="email"
           variant="standard"
-          autoComplete="email"
-          id="standard-email-input"
+          {...register('email', {
+            required: 'Empty',
+            minLength: {
+              value: 6,
+              message: 'This input length should be more than 5'
+            }
+          })}
+          error={Boolean(errors.email)}
+          helperText={errors.email && errors.email.message}
         />
-        <MyInput
-          required
-          name="password"
+
+        <Input
           type="password"
-          label="Password"
+          label="password"
           variant="standard"
-          id="standard-password-input"
+          {...register('password', {
+            required: 'Empty',
+            minLength: {
+              value: 4,
+              message: 'This field length should be more than 3'
+            }
+          })}
+          error={Boolean(errors.password)}
+          helperText={errors.password && errors.password.message}
         />
+
         <Grid container mt={2}>
           <Grid item xs>
             <Link href="#" variant="body2">
               Forgot password?
             </Link>
           </Grid>
+
           <Grid item>
             <Link href="/auth/registration" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
         </Grid>
+
         <MyButton type="submit" variant="contained" sx={{ mt: 0 }}>
           Login
         </MyButton>
+
       </Box>
     </MyBox>
-  );
+  )
 }
-
