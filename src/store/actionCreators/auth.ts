@@ -1,8 +1,8 @@
-import { AuthAction, AuthActionTypes } from "../../types/auth"
+import { AuthAction, AuthActionTypes, IFormInput } from "../../types/auth"
 import { Dispatch } from "redux"
 import axios from "../../api"
 
-export const logIn = (reqBody: {}) => {
+export const logIn = (reqBody:IFormInput) => {
   return async (dispatch:Dispatch<AuthAction>) => {
     try {
       const response = await axios.post('/auth/login', reqBody)
@@ -11,6 +11,8 @@ export const logIn = (reqBody: {}) => {
         payload: response.data.token
       })
     } catch (error:any) {
+      console.log(error.response);
+      
       dispatch({
         type: AuthActionTypes.AUTH_ERROR, payload: error.response.data
       })
@@ -18,7 +20,7 @@ export const logIn = (reqBody: {}) => {
   }
 }
 
-export const registration = (reqBody: {}) => {
+export const registration = (reqBody:IFormInput) => {
   return  async (dispatch:Dispatch<AuthAction>) => {
     try {
       const response = await axios.post('/auth/registration', reqBody)

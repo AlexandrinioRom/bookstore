@@ -4,6 +4,13 @@ export interface AuthState {
   token: null | string
 }
 
+export interface IFormInput {
+  email: string;
+  password: string;
+  dob?: string;
+  fullName?: string;
+}
+
 export enum AuthActionTypes {
   AUTH_SUCCESS = 'AUTH_SUCCESS',
   AUTH_ERROR = 'AUTH_ERROR',

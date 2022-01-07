@@ -6,6 +6,7 @@ import { MyButton } from '../../components/auth/button'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
+import { IFormInput } from '../../types/auth'
 import { useDispatch } from 'react-redux'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
@@ -13,14 +14,9 @@ import Box from '@mui/material/Box'
 import { useEffect } from 'react'
 import * as React from 'react'
 
-interface IFormInput {
-  email: string;
-  password: string;
-}
-
 export default function SignIn() {
 
-  const { acces } = useTypeSelector(state => state.auth)
+  const { acces, error } = useTypeSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -89,6 +85,20 @@ export default function SignIn() {
           error={Boolean(errors.password)}
           helperText={errors.password && errors.password.message}
         />
+
+        {error &&
+          <Typography
+            mb={2}
+            sx={{
+              textAlign: 'center'
+            }}
+            variant="h6"
+            component="p"
+            color='error.main'
+          >
+            {error}
+          </Typography>
+        }
 
         <Grid container mt={2}>
           <Grid item xs>

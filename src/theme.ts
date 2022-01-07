@@ -2,7 +2,12 @@ import { createTheme } from '@mui/material/styles';
 
 const theme  = createTheme({
   palette: {
-    primary: {main: '#4196a6'}
+    primary: {
+      main: '#4196a6',   
+    },
+    error: {
+      main: '#ed1b24'
+    }
   },
   components: {
     MuiCssBaseline: {

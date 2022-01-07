@@ -1,26 +1,19 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { MyButton as Button } from '../../components/auth/button'
 import { MyInput as Input } from '../../components/auth/input'
 import { registration } from '../../store/actionCreators/auth'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
+import { IFormInput } from '../../types/auth'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
 import { useEffect } from 'react'
 import * as React from 'react'
 
-
-interface IFormInput {
-  dob: string;
-  email: string;
-  password: string;
-  fullName: string;
-}
-
 export default function Registration() {
-  const { acces } = useTypeSelector(state => state.auth)
+  const { acces, error } = useTypeSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -119,6 +112,19 @@ export default function Registration() {
             "This field length must be between 4 and 10 characters"
           }
         />
+
+        {error &&
+          <Typography
+            sx={{
+              textAlign: 'center'
+            }}
+            variant="h6"
+            component="p"
+            color='error.main'
+          >
+            {error}
+          </Typography>
+        }
 
         <Button
           type="submit"
