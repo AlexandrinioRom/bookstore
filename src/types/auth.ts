@@ -1,7 +1,7 @@
 export interface AuthState {
   acces: boolean;
   error: null | string;
-  token: null | string
+  user: null | string
 }
 
 export interface IFormInput {

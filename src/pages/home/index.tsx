@@ -3,6 +3,7 @@ import { fetchProduct } from '../../store/actionCreators/product'
 import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
+import { authCheck } from '../../store/actionCreators/auth'
 
 const Home: React.FC = () => {
   const { products, error, loading } = useTypeSelector(state => state.product)
@@ -10,22 +11,20 @@ const Home: React.FC = () => {
   useEffect(() => {
 
     dispatch(fetchProduct())
-
+    if (localStorage.getItem('token')) {
+      authCheck()
+    }
   }, [])
-
-  if (loading) {
-    return <h1> Идет загрузка...</h1>
-  }
-  if (error) {
-    return <h1>{error}</h1>
-  }
 
   return (
     <>
       <Header />
       <ul>
+        {loading && <h1> Идет загрузка...</h1>}
+        {error && <h1>{error}</h1>}
+
         {products.map((product, index) =>
-          <li key={index}>{product.name}</li>
+          <li key={index}>{product.fullName}</li>
         )}
       </ul>
     </>

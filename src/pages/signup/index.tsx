@@ -38,7 +38,9 @@ export default function SignIn() {
   }
 
   useEffect(() => {
-    if (acces) { navigate(-1) }
+    if (acces) {
+      navigate(-1)
+    }
   }, [acces])
 
   return (

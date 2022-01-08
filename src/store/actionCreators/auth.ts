@@ -1,18 +1,19 @@
 import { AuthAction, AuthActionTypes, IFormInput } from "../../types/auth"
 import { Dispatch } from "redux"
-import axios from "../../api"
+import $api, { baseURL } from "../../api"
 
 export const logIn = (reqBody:IFormInput) => {
   return async (dispatch:Dispatch<AuthAction>) => {
     try {
-      const response = await axios.post('/auth/login', reqBody)
+      const response = await $api.post('/auth/login', reqBody)
       dispatch({
         type: AuthActionTypes.AUTH_SUCCESS,
-        payload: response.data.token
+        payload: response.data.user
       })
-    } catch (error:any) {
-      console.log(error.response);
       
+      localStorage.setItem("token", response.data.token)
+
+    } catch (error:any) {
       dispatch({
         type: AuthActionTypes.AUTH_ERROR, payload: error.response.data
       })
@@ -23,7 +24,7 @@ export const logIn = (reqBody:IFormInput) => {
 export const registration = (reqBody:IFormInput) => {
   return  async (dispatch:Dispatch<AuthAction>) => {
     try {
-      const response = await axios.post('/auth/registration', reqBody)
+      const response = await $api.post('/auth/registration', reqBody)
       dispatch({
         type: AuthActionTypes.AUTH_SUCCESS, payload: response.data
       })
@@ -33,4 +34,37 @@ export const registration = (reqBody:IFormInput) => {
       })
     }
   }
+}
+
+// export const authCheck = () => {
+//   return async(dispatch:Dispatch<AuthAction>) => {
+//     try {
+//       const response = await $api.get(`${baseURL}user/tokencheck`)
+//       dispatch({
+//         type: AuthActionTypes.AUTH_SUCCESS, payload: response.data
+//       })
+//       console.log(response.data);
+      
+  
+//     } catch (error: any) {
+//       dispatch({
+//         type: AuthActionTypes.AUTH_SUCCESS, payload: error.data
+//       })
+//     }
+//   }
+// }
+
+
+export const authCheck = async() => {
+  
+  try {
+    const response = await $api.get(`${baseURL}user/tokencheck`)
+    
+    console.log(response.data);
+    
+
+  } catch (error: any) {
+    console.log(error.data);
+  }
+  
 }
