@@ -1,19 +1,21 @@
-import { useTypeSelector } from '../../hooks/useTypeSelector'
 import { fetchProduct } from '../../store/actionCreators/product'
+import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { authCheck } from '../../store/actionCreators/auth'
 import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
-import { authCheck } from '../../store/actionCreators/auth'
 
 const Home: React.FC = () => {
   const { products, error, loading } = useTypeSelector(state => state.product)
   const dispatch = useDispatch()
+
   useEffect(() => {
 
     dispatch(fetchProduct())
     if (localStorage.getItem('token')) {
-      authCheck()
+      dispatch(authCheck())
     }
+
   }, [])
 
   return (

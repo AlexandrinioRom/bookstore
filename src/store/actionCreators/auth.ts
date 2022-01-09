@@ -36,35 +36,32 @@ export const registration = (reqBody:IFormInput) => {
   }
 }
 
-// export const authCheck = () => {
-//   return async(dispatch:Dispatch<AuthAction>) => {
-//     try {
-//       const response = await $api.get(`${baseURL}user/tokencheck`)
-//       dispatch({
-//         type: AuthActionTypes.AUTH_SUCCESS, payload: response.data
-//       })
-//       console.log(response.data);
-      
-  
-//     } catch (error: any) {
-//       dispatch({
-//         type: AuthActionTypes.AUTH_SUCCESS, payload: error.data
-//       })
-//     }
-//   }
-// }
-
-
-export const authCheck = async() => {
-  
-  try {
-    const response = await $api.get(`${baseURL}user/tokencheck`)
-    
-    console.log(response.data);
-    
-
-  } catch (error: any) {
-    console.log(error.data);
+export const authCheck = () => {
+  return async(dispatch:Dispatch<AuthAction>) => {
+    try {
+      const response = await $api.get(`${baseURL}user/tokencheck`)
+      dispatch({
+        type: AuthActionTypes.AUTH_SUCCESS, payload: response.data
+      })  
+    } catch (error: any) {
+      dispatch({
+        type: AuthActionTypes.AUTH_ERROR, payload: error.data
+      })
+    }
   }
-  
 }
+
+
+// export const authCheck = async() => {
+  
+//   try {
+//     const response = await $api.get(`${baseURL}user/tokencheck`)
+    
+//     console.log(response.data);
+    
+
+//   } catch (error: any) {
+//     console.log(error.response);
+//   }
+  
+// }
