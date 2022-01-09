@@ -1,6 +1,6 @@
 import { AuthAction, AuthActionTypes, IFormInput } from "../../types/auth"
-import { Dispatch } from "redux"
 import $api, { baseURL } from "../../api"
+import { Dispatch } from "redux"
 
 export const logIn = (reqBody:IFormInput) => {
   return async (dispatch:Dispatch<AuthAction>) => {
@@ -45,23 +45,8 @@ export const authCheck = () => {
       })  
     } catch (error: any) {
       dispatch({
-        type: AuthActionTypes.AUTH_ERROR, payload: error.data
+        type: AuthActionTypes.AUTH_ERROR, payload: error.response.data
       })
     }
   }
 }
-
-
-// export const authCheck = async() => {
-  
-//   try {
-//     const response = await $api.get(`${baseURL}user/tokencheck`)
-    
-//     console.log(response.data);
-    
-
-//   } catch (error: any) {
-//     console.log(error.response);
-//   }
-  
-// }

@@ -14,16 +14,16 @@ export interface IFormInput {
 export enum AuthActionTypes {
   AUTH_SUCCESS = 'AUTH_SUCCESS',
   AUTH_ERROR = 'AUTH_ERROR',
- 
 }
-interface AUTH_SUCCESS {
+
+interface AuthSuccessAction {
   type: AuthActionTypes.AUTH_SUCCESS,
   payload: string
 }
 
-interface AUTH_ERROR {
+interface AuthErrorAction {
   type: AuthActionTypes.AUTH_ERROR,
   payload: string
 }
 
-export type AuthAction = AUTH_SUCCESS | AUTH_ERROR 
+export type AuthAction = AuthSuccessAction | AuthErrorAction

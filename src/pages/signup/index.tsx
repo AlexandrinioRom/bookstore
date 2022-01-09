@@ -1,7 +1,7 @@
 import { MyInput as Input } from '../../components/auth/input'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { logIn } from '../../store/actionCreators/auth'
+import { authCheck, logIn } from '../../store/actionCreators/auth'
 import { MyButton } from '../../components/auth/button'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
@@ -38,9 +38,13 @@ export default function SignIn() {
   }
 
   useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(authCheck())
+    }
     if (acces) {
       navigate(-1)
     }
+
   }, [acces])
 
   return (

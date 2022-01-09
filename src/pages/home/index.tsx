@@ -1,5 +1,5 @@
-import { fetchProduct } from '../../store/actionCreators/product'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { fetchProduct } from '../../store/actionCreators/product'
 import { authCheck } from '../../store/actionCreators/auth'
 import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
@@ -12,9 +12,6 @@ const Home: React.FC = () => {
   useEffect(() => {
 
     dispatch(fetchProduct())
-    if (localStorage.getItem('token')) {
-      dispatch(authCheck())
-    }
 
   }, [])
 

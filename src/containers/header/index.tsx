@@ -5,8 +5,10 @@ import Link from '@mui/material/Link'
 import Box from '@mui/material/Box'
 import * as React from 'react'
 
-export default function Header() {
+import { useTypeSelector } from '../../hooks/useTypeSelector'
 
+export default function Header() {
+  const { acces } = useTypeSelector(state => state.auth)
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -20,26 +22,30 @@ export default function Header() {
             Basket
           </Link>
         </Box>
-        <Box>
-          <Link
-            component={LinkRouter}
-            ml={2}
-            to='/auth/login'
-            color="inherit"
-            underline="none"
-          >
-            Login
-          </Link>
-          <Link
-            component={LinkRouter}
-            to='/auth/registration'
-            color="inherit"
-            underline="none"
-            sx={{ ml: 1 }}
-          >
-            Registration
-          </Link>
-        </Box>
+
+        {!acces &&
+          <Box>
+            <Link
+              component={LinkRouter}
+              ml={2}
+              to='/auth/login'
+              color="inherit"
+              underline="none"
+            >
+              Login
+            </Link>
+            <Link
+              component={LinkRouter}
+              to='/auth/registration'
+              color="inherit"
+              underline="none"
+              sx={{ ml: 1 }}
+            >
+              Registration
+            </Link>
+          </Box>
+        }
+
       </Toolbar>
     </AppBar>
   );
