@@ -4,11 +4,14 @@ import AppBar from '@mui/material/AppBar'
 import Link from '@mui/material/Link'
 import Box from '@mui/material/Box'
 import * as React from 'react'
-
+import { authCheck } from '../../store/actionCreators/auth'
+import { useDispatch } from 'react-redux'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
 
 export default function Header() {
   const { acces } = useTypeSelector(state => state.auth)
+  const dispatch = useDispatch()
+
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -18,11 +21,11 @@ export default function Header() {
             to='/basket'
             color="inherit"
             underline='none'
+            onClick={() => dispatch(authCheck())}
           >
             Basket
           </Link>
         </Box>
-
         {!acces &&
           <Box>
             <Link
@@ -31,6 +34,7 @@ export default function Header() {
               to='/auth/login'
               color="inherit"
               underline="none"
+              onClick={() => dispatch(authCheck())}
             >
               Login
             </Link>
@@ -40,6 +44,7 @@ export default function Header() {
               color="inherit"
               underline="none"
               sx={{ ml: 1 }}
+              onClick={() => dispatch(authCheck())}
             >
               Registration
             </Link>

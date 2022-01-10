@@ -38,9 +38,7 @@ export default function SignIn() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(authCheck())
-    }
+
     if (acces) {
       navigate(-1)
     }

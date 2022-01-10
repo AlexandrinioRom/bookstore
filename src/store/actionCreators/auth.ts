@@ -47,6 +47,7 @@ export const authCheck = () => {
       dispatch({
         type: AuthActionTypes.AUTH_ERROR, payload: error.response.data
       })
+      localStorage.removeItem('token')
     }
   }
 }

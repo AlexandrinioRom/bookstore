@@ -1,6 +1,5 @@
-import { useTypeSelector } from '../../hooks/useTypeSelector'
 import { fetchProduct } from '../../store/actionCreators/product'
-import { authCheck } from '../../store/actionCreators/auth'
+import { useTypeSelector } from '../../hooks/useTypeSelector'
 import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'

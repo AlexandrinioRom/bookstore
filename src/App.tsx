@@ -26,12 +26,13 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
+      {/* Тут условие */}
 
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
+
             path="/basket"
             element={
               <RequireAuth>
