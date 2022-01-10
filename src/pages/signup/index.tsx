@@ -1,12 +1,12 @@
 import { MyInput as Input } from '../../components/auth/input'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { authCheck, logIn } from '../../store/actionCreators/auth'
+import { logIn } from '../../store/actionCreators/auth'
 import { MyButton } from '../../components/auth/button'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
-import { IFormInput } from '../../types/auth'
+import { IFormInput } from '../../types/user'
 import { useDispatch } from 'react-redux'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
@@ -16,7 +16,7 @@ import * as React from 'react'
 
 export default function SignIn() {
 
-  const { acces, error } = useTypeSelector(state => state.auth)
+  const { acces, error } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

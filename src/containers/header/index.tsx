@@ -10,12 +10,17 @@ import { useTypeSelector } from '../../hooks/useTypeSelector'
 import { Typography } from '@mui/material'
 
 export default function Header() {
-  const { acces } = useTypeSelector(state => state.auth)
+  const { acces } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
 
   return (
     <AppBar position='static'>
-      <Toolbar>
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}
+      >
         <Box>
           <Link
             component={LinkRouter}
@@ -29,16 +34,29 @@ export default function Header() {
 
         </Box>
         {acces &&
-          <Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between'
+            }}
+          >
             <Typography
-              ml={2}
               component={'p'}
-
               color="inherit"
               onClick={() => dispatch(logout())}
             >
               Logout
             </Typography>
+            <Link
+              ml={2}
+              component={LinkRouter}
+              to='/user'
+              color="inherit"
+              underline='none'
+              onClick={() => dispatch(authCheck())}
+            >
+              Profile
+            </Link>
           </Box>
         }
 

@@ -1,20 +1,21 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { useTypeSelector } from "./hooks/useTypeSelector"
+import { authCheck } from "./store/actionCreators/auth"
 import Basket, { RequireAuth } from './pages/basket'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Registration from './pages/registration'
+import { useDispatch } from "react-redux"
+import Profile from "./pages/profile"
 import SignUp from './pages/signup'
+import { useEffect } from "react"
 import Home from './pages/home'
 import * as React from 'react'
 import theme from './theme'
-import { authCheck } from "./store/actionCreators/auth"
-import { useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { useTypeSelector } from "./hooks/useTypeSelector"
 
 export default function App() {
-  const { acces } = useTypeSelector(state => state.auth)
 
+  const { acces } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -36,6 +37,13 @@ export default function App() {
             element={
               <RequireAuth>
                 <Basket />
+              </RequireAuth>
+            } />
+          <Route
+            path="/user"
+            element={
+              <RequireAuth>
+                <Profile />
               </RequireAuth>
             } />
           <Route path="/auth/login" element={<SignUp />} />

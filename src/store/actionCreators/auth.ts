@@ -1,4 +1,4 @@
-import { AuthAction, AuthActionTypes, IFormInput } from "../../types/auth"
+import { AuthAction, AuthActionTypes, IFormInput, UserAction, UserActionTypes } from "../../types/user"
 import $api, { baseURL } from "../../api"
 import { Dispatch } from "redux"
 
@@ -55,11 +55,27 @@ export const authCheck = () => {
 export const logout = () => {
   return (dispatch:Dispatch<AuthAction>) => {
     
-      
+    dispatch({
+      type: AuthActionTypes.LOGOUT
+    })  
+    localStorage.removeItem('token')
+    
+  }
+}
+
+export const update = (reqBody:IFormInput) => {
+  return async(dispatch: Dispatch<UserAction>) => {
+    try {
+      const response = await $api.put('/user', reqBody)
       dispatch({
-        type: AuthActionTypes.LOGOUT
-      })  
-      localStorage.removeItem('token')
+        type: UserActionTypes.USER_CHANGE_SACCESS, payload: response.data
+      })
+    } catch (error: any) {
+      dispatch({
+        type: UserActionTypes.USER_CHANGE_ERROR, payload: error.response.data
+        
+      })
+    }
     
   }
 }

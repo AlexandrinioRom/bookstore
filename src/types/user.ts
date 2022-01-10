@@ -1,4 +1,4 @@
-export interface AuthState {
+export interface UserState {
   acces: boolean;
   error: null | string;
   user: null | string
@@ -6,7 +6,7 @@ export interface AuthState {
 
 export interface IFormInput {
   email: string;
-  password: string;
+  password?: string;
   dob?: string;
   fullName?: string;
 }
@@ -31,4 +31,21 @@ interface AuthErrorAction {
   payload: string
 }
 
+
+export enum UserActionTypes {
+  USER_CHANGE_SACCESS = 'USER_CHANGE_SACCESS', 
+  USER_CHANGE_ERROR = 'USER_CHANGE_ERROR'
+}
+
+interface UserChangeSuccessAction {
+  type: UserActionTypes.USER_CHANGE_SACCESS
+  payload: string
+}
+
+interface UserChangeErrorAction {
+  type: UserActionTypes.USER_CHANGE_ERROR
+  payload: string
+}
+
+export type UserAction = UserChangeSuccessAction | UserChangeErrorAction
 export type AuthAction = AuthSuccessAction | AuthErrorAction | LogoutAction

@@ -6,14 +6,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { MyBox } from '../../components/auth/box'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
-import { IFormInput } from '../../types/auth'
+import { IFormInput } from '../../types/user'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
 import { useEffect } from 'react'
 import * as React from 'react'
 
 export default function Registration() {
-  const { acces, error } = useTypeSelector(state => state.auth)
+  const { acces, error } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
