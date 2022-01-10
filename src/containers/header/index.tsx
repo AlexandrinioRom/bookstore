@@ -4,9 +4,10 @@ import AppBar from '@mui/material/AppBar'
 import Link from '@mui/material/Link'
 import Box from '@mui/material/Box'
 import * as React from 'react'
-import { authCheck } from '../../store/actionCreators/auth'
+import { authCheck, logout } from '../../store/actionCreators/auth'
 import { useDispatch } from 'react-redux'
 import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { Typography } from '@mui/material'
 
 export default function Header() {
   const { acces } = useTypeSelector(state => state.auth)
@@ -25,7 +26,22 @@ export default function Header() {
           >
             Basket
           </Link>
+
         </Box>
+        {acces &&
+          <Box>
+            <Typography
+              ml={2}
+              component={'p'}
+
+              color="inherit"
+              onClick={() => dispatch(logout())}
+            >
+              Logout
+            </Typography>
+          </Box>
+        }
+
         {!acces &&
           <Box>
             <Link

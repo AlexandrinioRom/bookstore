@@ -51,3 +51,15 @@ export const authCheck = () => {
     }
   }
 }
+
+export const logout = () => {
+  return (dispatch:Dispatch<AuthAction>) => {
+    
+      
+      dispatch({
+        type: AuthActionTypes.LOGOUT
+      })  
+      localStorage.removeItem('token')
+    
+  }
+}

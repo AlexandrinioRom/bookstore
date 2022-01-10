@@ -13,6 +13,8 @@ export const AuthReducer = (state = initialState, action: AuthAction): AuthState
       return {  acces: true,  error: null, user: action.payload }
     case AuthActionTypes.AUTH_ERROR: 
       return {  acces: false, error: action.payload, user: null }
+    case AuthActionTypes.LOGOUT:
+      return { acces: false, error: null, user: null}
     default:
       return state
   }

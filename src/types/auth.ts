@@ -14,6 +14,11 @@ export interface IFormInput {
 export enum AuthActionTypes {
   AUTH_SUCCESS = 'AUTH_SUCCESS',
   AUTH_ERROR = 'AUTH_ERROR',
+  LOGOUT = 'LOGOUT'
+}
+
+interface LogoutAction {
+  type: AuthActionTypes.LOGOUT
 }
 
 interface AuthSuccessAction {
@@ -26,4 +31,4 @@ interface AuthErrorAction {
   payload: string
 }
 
-export type AuthAction = AuthSuccessAction | AuthErrorAction
+export type AuthAction = AuthSuccessAction | AuthErrorAction | LogoutAction
