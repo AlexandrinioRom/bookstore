@@ -27,28 +27,40 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/*условие */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/basket"
-            element={
-              <RequireAuth>
-                <Basket />
-              </RequireAuth>
-            } />
-          <Route
-            path="/user"
-            element={
-              <RequireAuth>
-                <Profile />
-              </RequireAuth>
-            } />
-          <Route path="/auth/login" element={<SignUp />} />
-          <Route path="/auth/registration" element={<Registration />} />
-        </Routes>
-      </Router>
+      {acces &&
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/basket"
+              element={
+                <RequireAuth>
+                  <Basket />
+                </RequireAuth>
+              } />
+            <Route
+              path="/user"
+              element={
+                <RequireAuth>
+                  <Profile />
+                </RequireAuth>
+              } />
+          </Routes>
+        </Router>
+      }
+      {!acces &&
+
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth/login" element={<SignUp />} />
+            <Route path="/auth/registration" element={<Registration />} />
+          </Routes>
+        </Router>
+
+      }
+
+
     </ThemeProvider >
   );
 }
