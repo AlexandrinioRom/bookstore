@@ -1,4 +1,4 @@
-import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { useTypeSelector } from '../../../hooks/useTypeSelector'
 import { Navigate, useLocation } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import React from 'react'

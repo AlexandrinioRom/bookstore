@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { useTypeSelector } from "./hooks/useTypeSelector"
-import { authCheck } from "./store/actionCreators/auth"
-import Basket, { RequireAuth } from './pages/basket'
+import { authCheck } from "./store/actionCreators/user"
+import Basket, { RequireAuth } from './components/pages/basket'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import Registration from './pages/registration'
+import Registration from './components/pages/registration'
 import { useDispatch } from "react-redux"
-import Profile from "./pages/profile"
-import SignUp from './pages/signup'
+import Profile from "./components/pages/profile"
+import SignUp from './components/pages/signup'
 import { useEffect } from "react"
-import Home from './pages/home'
+import Home from './components/pages/home'
 import * as React from 'react'
 import theme from './theme'
 
@@ -27,8 +27,6 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* Тут условие */}
-
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -50,6 +48,6 @@ export default function App() {
           <Route path="/auth/registration" element={<Registration />} />
         </Routes>
       </Router>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }

@@ -1,4 +1,3 @@
-import axios from "axios"
 import { Dispatch } from "redux"
 import $api from "../../api"
 import { ProductAction, ProductActionTypes } from "../../types/product"

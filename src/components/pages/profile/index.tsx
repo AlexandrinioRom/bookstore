@@ -1,13 +1,13 @@
-import { MyInput as Input } from '../../components/auth/input'
-import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { MyInput as Input } from '../../small/input'
+import { useTypeSelector } from '../../../hooks/useTypeSelector'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, Container, Typography } from '@mui/material'
-import { IFormInput } from '../../types/user'
+import { IFormInput } from '../../../types/user'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
 import { useState } from 'react'
 import React from 'react'
-import { update } from '../../store/actionCreators/auth'
+import { update } from '../../../store/actionCreators/user'
 
 
 const Profile: React.FC = () => {

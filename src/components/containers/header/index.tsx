@@ -4,9 +4,9 @@ import AppBar from '@mui/material/AppBar'
 import Link from '@mui/material/Link'
 import Box from '@mui/material/Box'
 import * as React from 'react'
-import { authCheck, logout } from '../../store/actionCreators/auth'
+import { authCheck, logout } from '../../../store/actionCreators/user'
 import { useDispatch } from 'react-redux'
-import { useTypeSelector } from '../../hooks/useTypeSelector'
+import { useTypeSelector } from '../../../hooks/useTypeSelector'
 import { Typography } from '@mui/material'
 
 export default function Header() {
