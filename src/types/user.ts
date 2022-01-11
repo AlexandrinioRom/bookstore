@@ -9,6 +9,7 @@ export interface IFormInput {
   password?: string;
   dob?: string;
   fullName?: string;
+  
 }
 
 export enum AuthActionTypes {

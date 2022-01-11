@@ -8,7 +8,7 @@ export const logIn = (reqBody:IFormInput) => {
       const response = await $api.post('/auth/login', reqBody)
       dispatch({
         type: AuthActionTypes.AUTH_SUCCESS,
-        payload: response.data.user
+        payload: response.data.id
       })
       
       localStorage.setItem("token", response.data.token)
@@ -36,16 +36,39 @@ export const registration = (reqBody:IFormInput) => {
   }
 }
 
+
+
+export const getInfo = async(userId: string | null, setState:React.Dispatch<React.SetStateAction<IFormInput>>) => {
+  
+    try {
+      await $api.get(`${baseURL}user/${userId}`).then( res => 
+        setState({
+          fullName: res!.data.fullName,
+          email: res!.data.email,
+          dob: res!.data.dob
+        })
+      )
+      
+    } catch (error: any) {
+      alert(error.response.data)
+    }
+}
+
+
+
+
 export const authCheck = () => {
   return async(dispatch:Dispatch<AuthAction>) => {
     try {
       const response = await $api.get(`${baseURL}user/tokencheck`)
       dispatch({
-        type: AuthActionTypes.AUTH_SUCCESS, payload: response.data
+        type: AuthActionTypes.AUTH_SUCCESS,
+        payload: response.data
       })  
     } catch (error: any) {
       dispatch({
-        type: AuthActionTypes.AUTH_ERROR, payload: error.response.data
+        type: AuthActionTypes.AUTH_ERROR,
+        payload: error.response.data
       })
       localStorage.removeItem('token')
     }
@@ -54,7 +77,7 @@ export const authCheck = () => {
 
 export const logout = () => {
   return (dispatch:Dispatch<AuthAction>) => {
-    
+
     dispatch({
       type: AuthActionTypes.LOGOUT
     })  
@@ -76,6 +99,5 @@ export const update = (reqBody:IFormInput) => {
         
       })
     }
-    
   }
 }

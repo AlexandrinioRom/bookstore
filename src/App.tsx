@@ -27,6 +27,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/*условие */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

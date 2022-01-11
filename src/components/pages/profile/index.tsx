@@ -1,17 +1,26 @@
 import { MyInput as Input } from '../../small/input'
-import { useTypeSelector } from '../../../hooks/useTypeSelector'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, Container, Typography } from '@mui/material'
 import { IFormInput } from '../../../types/user'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
-import { update } from '../../../store/actionCreators/user'
+import { getInfo, update } from '../../../store/actionCreators/user'
+import { useTypeSelector } from '../../../hooks/useTypeSelector'
 
 
 const Profile: React.FC = () => {
-  const [display, setDisplay] = useState(false)
+
+  const initial = {
+    dob: '',
+    email: '',
+    fullName: ''
+  }
+  const { user, error } = useTypeSelector(state => state.user)
+
+  const [display, setDisplay] = useState<Boolean>(false)
+  const [userInfo, setUser] = useState<IFormInput>(initial)
   const dispatch = useDispatch()
 
   const {
@@ -30,15 +39,24 @@ const Profile: React.FC = () => {
     }
 
     dispatch(update(reqBody))
-
+    if (!error) {
+      getInfo(user, setUser)
+    }
   }
 
-  const showForm = () => {
+  const showInfo = () => {
     setDisplay(!display)
-
   }
+
+  useEffect(() => {
+
+    getInfo(user, setUser)
+
+  }, [])
+
 
   return (
+
     <Box>
       <Typography
         color="black"
@@ -47,7 +65,7 @@ const Profile: React.FC = () => {
         User page
       </Typography>
       <Button
-        onClick={showForm}
+        onClick={showInfo}
       >
         Update Info
       </Button>
@@ -62,6 +80,7 @@ const Profile: React.FC = () => {
             type="email"
             label="email"
             variant="standard"
+            defaultValue={userInfo.email}
             {...register('email', {
               required: 'Empty',
               minLength: {
@@ -78,6 +97,7 @@ const Profile: React.FC = () => {
             label="name"
             variant="standard"
             autoComplete='name'
+            defaultValue={userInfo.fullName}
             {...register('fullName', {
               minLength: 2, required: true,
             })}
@@ -88,7 +108,11 @@ const Profile: React.FC = () => {
             }
           />
 
-          <Button type="submit" variant="contained" sx={{ mt: 0 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 0 }}
+          >
             Change
           </Button>
 
@@ -101,4 +125,5 @@ const Profile: React.FC = () => {
 }
 
 export default Profile
+
 
