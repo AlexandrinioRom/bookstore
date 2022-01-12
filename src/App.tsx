@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { useTypeSelector } from "./hooks/useTypeSelector"
 import { authCheck } from "./store/actionCreators/user"
-import Basket, { RequireAuth } from './components/pages/basket'
+import Basket from './components/pages/basket'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Registration from './components/pages/registration'
@@ -12,10 +12,12 @@ import { useEffect } from "react"
 import Home from './components/pages/home'
 import * as React from 'react'
 import theme from './theme'
+import { Layout } from "./components/containers/Layout"
+import { RequireAuth } from "./hoc/RequireAuth"
 
 export default function App() {
 
-  const { acces } = useTypeSelector(state => state.user)
+  const { loading } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -24,42 +26,40 @@ export default function App() {
     }
   }, [])
 
+  if (loading) {
+    return (<p>Провека токена{alert('')}</p>)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {acces &&
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
+
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+
             <Route
-              path="/basket"
+              path="basket"
               element={
                 <RequireAuth>
                   <Basket />
                 </RequireAuth>
               } />
             <Route
-              path="/user"
+              path="user"
               element={
                 <RequireAuth>
                   <Profile />
                 </RequireAuth>
               } />
-          </Routes>
-        </Router>
-      }
-      {!acces &&
 
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth/login" element={<SignUp />} />
-            <Route path="/auth/registration" element={<Registration />} />
-          </Routes>
-        </Router>
+            <Route path="auth/login" element={<SignUp />} />
+            <Route path="auth/registration" element={<Registration />} />
 
-      }
-
+          </Route>
+        </Routes>
+      </Router>
 
     </ThemeProvider >
   );

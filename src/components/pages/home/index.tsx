@@ -1,8 +1,8 @@
 import { fetchProduct } from '../../../store/actionCreators/product'
 import { useTypeSelector } from '../../../hooks/useTypeSelector'
-import Header from '../../containers/header'
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
+
 
 const Home: React.FC = () => {
   const { products, error, loading } = useTypeSelector(state => state.product)
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header />
+
       <ul>
         {loading && <h1> Идет загрузка...</h1>}
         {error && <h1>{error}</h1>}
@@ -25,6 +25,7 @@ const Home: React.FC = () => {
           <li key={index}>{product.fullName}</li>
         )}
       </ul>
+
     </>
   );
 }

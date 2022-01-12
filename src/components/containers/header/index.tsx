@@ -78,7 +78,6 @@ export default function Header() {
               color="inherit"
               underline="none"
               sx={{ ml: 1 }}
-              onClick={() => dispatch(authCheck())}
             >
               Registration
             </Link>

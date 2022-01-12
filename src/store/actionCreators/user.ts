@@ -8,7 +8,7 @@ export const logIn = (reqBody:IFormInput) => {
       const response = await $api.post('/auth/login', reqBody)
       dispatch({
         type: AuthActionTypes.AUTH_SUCCESS,
-        payload: response.data.id
+        payload: response.data.info
       })
       
       localStorage.setItem("token", response.data.token)
@@ -36,30 +36,12 @@ export const registration = (reqBody:IFormInput) => {
   }
 }
 
-
-
-export const getInfo = async(userId: string | null, setState:React.Dispatch<React.SetStateAction<IFormInput>>) => {
-  
-    try {
-      await $api.get(`${baseURL}user/${userId}`).then( res => 
-        setState({
-          fullName: res!.data.fullName,
-          email: res!.data.email,
-          dob: res!.data.dob
-        })
-      )
-      
-    } catch (error: any) {
-      alert(error.response.data)
-    }
-}
-
-
-
-
 export const authCheck = () => {
-  return async(dispatch:Dispatch<AuthAction>) => {
+  return async(dispatch:Dispatch<AuthAction| UserAction>) => {
     try {
+      dispatch({
+        type: UserActionTypes.USER_LOADING
+      })
       const response = await $api.get(`${baseURL}user/tokencheck`)
       dispatch({
         type: AuthActionTypes.AUTH_SUCCESS,
@@ -89,6 +71,7 @@ export const logout = () => {
 export const update = (reqBody:IFormInput) => {
   return async(dispatch: Dispatch<UserAction>) => {
     try {
+
       const response = await $api.put('/user', reqBody)
       dispatch({
         type: UserActionTypes.USER_CHANGE_SACCESS, payload: response.data
@@ -101,3 +84,21 @@ export const update = (reqBody:IFormInput) => {
     }
   }
 }
+
+
+// export const getInfo = (userId: string | null| IFormInput) => {
+//   return async(dispatch:Dispatch<UserAction>) => {
+//     try {
+//       const response = await $api.get(`${baseURL}user/${userId}`)
+//       dispatch({
+//         type: UserActionTypes.USER_GETINFO_SUCCESS,
+//         payload: response.data
+//       })  
+//     } catch (error: any) {
+//       dispatch({
+//         type: UserActionTypes.USER_GETINFO_ERROR,
+//         payload: error.response.data
+//       })
+//     }
+//   }
+// }

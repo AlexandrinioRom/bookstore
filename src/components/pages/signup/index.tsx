@@ -5,7 +5,7 @@ import { logIn } from '../../../store/actionCreators/user'
 import { MyButton } from '../../small/button'
 import { MyBox } from '../../small/box'
 import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
+import { Path, useLocation, useNavigate } from 'react-router-dom'
 import { IFormInput } from '../../../types/user'
 import { useDispatch } from 'react-redux'
 import Link from '@mui/material/Link'
@@ -14,11 +14,15 @@ import Box from '@mui/material/Box'
 import { useEffect } from 'react'
 import * as React from 'react'
 
+
 export default function SignIn() {
 
   const { acces, error } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
+  const myState = location.state as Partial<Path>
+  const fromPage = myState?.pathname || '/'
 
   const {
     register,
@@ -40,7 +44,7 @@ export default function SignIn() {
   useEffect(() => {
 
     if (acces) {
-      navigate(-1)
+      navigate(fromPage, { replace: true })
     }
 
   }, [acces])
@@ -48,7 +52,6 @@ export default function SignIn() {
   return (
 
     <MyBox>
-
       <Typography
         mb={2}
         variant="h5"
