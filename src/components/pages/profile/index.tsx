@@ -4,15 +4,16 @@ import { Button, Container, Typography } from '@mui/material'
 import { IFormInput } from '../../../types/user'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
-import { update } from '../../../store/actionCreators/user'
+import { authCheck, update } from '../../../store/actionCreators/user'
 import { useTypeSelector } from '../../../hooks/useTypeSelector'
 
 
 const Profile: React.FC = () => {
 
   const user = useTypeSelector(state => state.user.user)
+  const error = useTypeSelector(state => state.user)
 
   const [display, setDisplay] = useState<Boolean>(false)
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Profile: React.FC = () => {
   const showInfo = () => {
     setDisplay(!display)
   }
+
 
   return (
 

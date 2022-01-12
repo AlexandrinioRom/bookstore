@@ -27,7 +27,7 @@ export default function App() {
   }, [])
 
   if (loading) {
-    return (<p>Провека токена{alert('Проверка токена')}</p>)
+    return (<p>Провека токена</p>)
   }
 
   return (

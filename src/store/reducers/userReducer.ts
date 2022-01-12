@@ -23,7 +23,7 @@ export const userReducer = (state = initialState, action: AuthAction | UserActio
     case UserActionTypes.USER_CHANGE_SACCESS:
       return { ...state, user: action.payload}
     case UserActionTypes.USER_CHANGE_ERROR:
-      return { ...state, error: action.payload}
+      return { ...state,error: action.payload, user: null}
       
     default:
       return state

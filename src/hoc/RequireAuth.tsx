@@ -6,9 +6,5 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   const location = useLocation()
   const { acces } = useTypeSelector(state => state.user)
 
-  if (!acces) {
-    return <Navigate to="/auth/login" state={location} />;
-  }
-
-  return children;
+  return acces ? children : <Navigate to="/auth/login" state={location} />;
 }

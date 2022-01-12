@@ -69,18 +69,27 @@ export const logout = () => {
 }
 
 export const update = (reqBody:IFormInput) => {
-  return async(dispatch: Dispatch<UserAction>) => {
+  return async(dispatch: Dispatch<UserAction|AuthAction>) => {
     try {
 
       const response = await $api.put('/user', reqBody)
       dispatch({
         type: UserActionTypes.USER_CHANGE_SACCESS, payload: response.data
       })
+      alert('Данные изменены')
     } catch (error: any) {
-      dispatch({
-        type: UserActionTypes.USER_CHANGE_ERROR, payload: error.response.data
-        
-      })
+      if (error.response.data === 'jwt malformed'||'jwt expired)') {
+        dispatch({
+          type: AuthActionTypes.AUTH_ERROR,
+          payload: error.response.data
+        })
+      } else {
+        dispatch({
+          type: UserActionTypes.USER_CHANGE_ERROR, payload: error.response.data
+          
+        })
+      }
+      
     }
   }
 }
