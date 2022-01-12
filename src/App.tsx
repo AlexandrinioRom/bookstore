@@ -17,7 +17,7 @@ import { RequireAuth } from "./hoc/RequireAuth"
 
 export default function App() {
 
-  const { loading } = useTypeSelector(state => state.user)
+  const { loading, acces } = useTypeSelector(state => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function App() {
   }, [])
 
   if (loading) {
-    return (<p>Провека токена{alert('')}</p>)
+    return (<p>Провека токена{alert('Проверка токена')}</p>)
   }
 
   return (

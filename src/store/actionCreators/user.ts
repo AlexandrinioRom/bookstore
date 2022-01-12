@@ -84,21 +84,3 @@ export const update = (reqBody:IFormInput) => {
     }
   }
 }
-
-
-// export const getInfo = (userId: string | null| IFormInput) => {
-//   return async(dispatch:Dispatch<UserAction>) => {
-//     try {
-//       const response = await $api.get(`${baseURL}user/${userId}`)
-//       dispatch({
-//         type: UserActionTypes.USER_GETINFO_SUCCESS,
-//         payload: response.data
-//       })  
-//     } catch (error: any) {
-//       dispatch({
-//         type: UserActionTypes.USER_GETINFO_ERROR,
-//         payload: error.response.data
-//       })
-//     }
-//   }
-// }

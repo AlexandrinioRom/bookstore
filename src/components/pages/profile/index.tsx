@@ -12,7 +12,7 @@ import { useTypeSelector } from '../../../hooks/useTypeSelector'
 
 const Profile: React.FC = () => {
 
-  const { user } = useTypeSelector(state => state.user)
+  const user = useTypeSelector(state => state.user.user)
 
   const [display, setDisplay] = useState<Boolean>(false)
   const dispatch = useDispatch()
@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
             type="email"
             label="email"
             variant="standard"
-            // defaultValue={user.email}
+            defaultValue={user?.email}
             {...register('email', {
               required: 'Empty',
               minLength: {
@@ -82,7 +82,7 @@ const Profile: React.FC = () => {
             label="name"
             variant="standard"
             autoComplete='name'
-            // defaultValue={userInfo.fullName}
+            defaultValue={user?.fullName}
             {...register('fullName', {
               minLength: 2, required: true,
             })}

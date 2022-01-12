@@ -2,7 +2,7 @@ export interface UserState {
   acces: boolean;
   error: null | string;
   loading?: boolean;
-  user: null | string | IFormInput
+  user: null|IFormInput
 }
 
 export interface IFormInput {
@@ -25,7 +25,7 @@ interface LogoutAction {
 
 interface AuthSuccessAction {
   type: AuthActionTypes.AUTH_SUCCESS,
-  payload: string
+  payload: IFormInput
 }
 
 interface AuthErrorAction {
@@ -37,14 +37,12 @@ interface AuthErrorAction {
 export enum UserActionTypes {
   USER_CHANGE_SACCESS = 'USER_CHANGE_SACCESS', 
   USER_CHANGE_ERROR = 'USER_CHANGE_ERROR',
-  // USER_GETINFO_SUCCESS = 'USER_GETINFO_SUCCESS',
-  // USER_GETINFO_ERROR = 'USER_GETINFO_ERROR',
   USER_LOADING = 'USER_LOADING'
 }
 
 interface UserChangeSuccessAction {
   type: UserActionTypes.USER_CHANGE_SACCESS
-  payload: string
+  payload: IFormInput
 }
 
 interface UserChangeErrorAction {
@@ -52,21 +50,10 @@ interface UserChangeErrorAction {
   payload: string
 }
 
-// interface UserGetInfoSuccessAction {
-//   type: UserActionTypes.USER_GETINFO_SUCCESS,
-//   payload: IFormInput
-// }
-
-// interface UserGetInfoErrorAction {
-//   type: UserActionTypes.USER_GETINFO_ERROR,
-//   payload: string
-// }
 
 interface UserLoading {
   type: UserActionTypes.USER_LOADING
 }
-
-// export type UserAction = UserChangeSuccessAction | UserChangeErrorAction | UserGetInfoSuccessAction | UserGetInfoErrorAction | UserLoading
 
 export type UserAction = UserChangeSuccessAction | UserChangeErrorAction | UserLoading
 export type AuthAction = AuthSuccessAction | AuthErrorAction | LogoutAction
