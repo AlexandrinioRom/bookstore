@@ -4,7 +4,7 @@ import { Button, Container, Typography } from '@mui/material'
 import { IFormInput } from '../../../types/user'
 import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import React from 'react'
 import { update } from '../../../store/actionCreators/user'
 import { useTypeSelector } from '../../../hooks/useTypeSelector'
@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
 
     const reqBody = {
       fullName: data.fullName,
-      email: data.email,
+      dob: data.dob,
     }
 
     dispatch(update(reqBody))
@@ -62,19 +62,19 @@ const Profile: React.FC = () => {
         >
 
           <Input
-            type="email"
-            label="email"
+            type="date"
+            label="Date of Birth"
             variant="standard"
-            defaultValue={user?.email}
-            {...register('email', {
-              required: 'Empty',
-              minLength: {
-                value: 6,
-                message: 'This input length should be more than 5'
-              }
+            autoComplete='date'
+            defaultValue={user?.dob}
+            InputLabelProps={{
+              shrink: true
+            }}
+            {...register('dob', {
+              required: "Empty"
             })}
-            error={Boolean(errors.email)}
-            helperText={errors.email && errors.email.message}
+            error={Boolean(errors.dob)}
+            helperText={errors.dob && errors.dob.message}
           />
 
           <Input

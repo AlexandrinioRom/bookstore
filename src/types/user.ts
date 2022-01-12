@@ -6,7 +6,7 @@ export interface UserState {
 }
 
 export interface IFormInput {
-  email: string;
+  email?: string;
   password?: string;
   dob?: string;
   fullName?: string;
